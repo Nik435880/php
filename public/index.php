@@ -9,7 +9,6 @@ use Http\Controllers\PostController;
 use Core\Router;
 use Core\Database;
 use Core\Container;
-use Core\Session;
 use Dotenv\Dotenv;
 use PDO;
 
@@ -20,8 +19,6 @@ error_reporting(E_ALL);
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
-
-
 
 $config = require __DIR__ . '/../config.php';
 
@@ -45,8 +42,6 @@ function redirect($url, $status = 0)
     header("Location:" . $url, true, $status);
 }
 
-
-
 $container = new Container();
 Container::setInstance($container);
 
@@ -58,8 +53,6 @@ $container->bind(PDO::class, function () use ($config) {
 $container->bind(Database::class, function ($container) {
     return new Database($container->make(PDO::class));
 });
-
-
 
 $router = new Router();
 
@@ -79,8 +72,6 @@ $router->get('/logout', [AuthController::class, 'logout'], 'auth');
 $router->get('/posts', [PostController::class, 'index'], 'auth');
 $router->get('/posts/create', [PostController::class, 'create'], 'auth');
 $router->post('/posts/create', [PostController::class, 'store'], 'auth');
-
-
 $router->delete('/logout', [AuthController::class, 'logout'], 'auth');
 
 $method = $_SERVER['REQUEST_METHOD'];

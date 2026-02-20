@@ -14,6 +14,11 @@
             "Models\\": "Models/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "require": {
         "vlucas/phpdotenv": "^5.6"
     }
